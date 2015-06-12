@@ -1,0 +1,7 @@
+source doHadd.sh "/pnfs/roma1.infn.it/data/cms/store/user/soffi" "Photon" "photonDataA" "" "0000"
+source doHadd.sh "/pnfs/roma1.infn.it/data/cms/store/user/soffi" "SinglePhoton" "photonDataB" "" "0000"
+source doHadd.sh "/pnfs/roma1.infn.it/data/cms/store/user/soffi" "SinglePhoton" "photonDataB" "" "0001"
+source doHadd.sh "/pnfs/roma1.infn.it/data/cms/store/user/soffi" "SinglePhoton" "photonDataC" "" "0000"
+source doHadd.sh "/pnfs/roma1.infn.it/data/cms/store/user/soffi" "SinglePhoton" "photonDataC" "" "0001"
+source doHadd.sh "/pnfs/roma1.infn.it/data/cms/store/user/soffi" "SinglePhoton" "photonDataC" "" "0002"
+source doHadd.sh "/pnfs/roma1.infn.it/data/cms/store/user/soffi" "SinglePhotonParked" "photonDataD" "" "0000"
