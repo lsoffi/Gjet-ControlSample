@@ -58,53 +58,37 @@ void CompareRatioLO(){
  
   TH1F* h_mitLO  =  (TH1F*) fin_mit->Get("Z_pho_LO");
   TH1F* h_mitNLO  =  (TH1F*) fin_mit->Get("Z_pho_NLO");
-  TH1F* h_mit_ratio = h_mitNLO->Clone();
-  h_mit_ratio->Divide(h_mitLO);
   TH1F* h_gjet  =  (TH1F*) fin_gjet->Get("h_phmetLogX");
   TH1F* h_znunu  =  (TH1F*) fin_znunu->Get("h_met_znunuLogX");
-  TH1F* h_ratioLO = h_znunu->Clone();
-  // h_gjet->Scale(1.3);
-  h_ratioLO->Divide(h_gjet);
-  TH1F* h_ratioNLO = h_ratioLO->Clone();
-  h_ratioNLO->Multiply(h_mit_ratio);
-  h_ratioNLO->SetName("ratioNLO");
-  h_ratioNLO->SetTitle("ratioNLO");
+  TH1F* h_ratio = h_znunu->Clone();
+  //h_gjet->Scale(1.3);
+  h_ratio->Divide(h_gjet);
 
   TH1F* h_weightLO = (TH1F*)(((TH2F*)fin_gjet->Get("h2_weightsLO"))->ProfileX());
   h_weightLO->SetLineColor(kRed);
   h_weightLO->SetLineWidth(2);
 
   TH1F* h_weightNLO = (TH1F*)(((TH2F*)fin_gjet->Get("h2_weightsNLO"))->ProfileX());
-  h_weightNLO->SetLineColor(kRed);
+  h_weightNLO->SetLineColor(kBlue);
   h_weightNLO->SetLineWidth(2);
-  h_weightNLO->SetLineStyle(kDashed);
 
-  h_ratioLO->SetLineColor(kAzure+7);
-  h_ratioLO->SetLineWidth(2);
- 
-  h_ratioNLO->SetLineColor(kAzure+7);
-  h_ratioNLO->SetLineWidth(2);
-  h_ratioNLO->SetLineStyle(kDashed);
+  h_ratio->SetLineColor(kAzure+7);
+  h_ratio->SetLineWidth(2);
 
 
   h_mitLO->SetLineWidth(2);
-  h_mitLO->SetLineColor(kBlue);
- 
+  h_mitLO->SetLineColor(kRed);
+  h_mitLO->SetLineStyle(kDashed);
+
   h_mitNLO->SetLineColor(kBlue);
   h_mitNLO->SetLineWidth(2);
   h_mitNLO->SetLineStyle(kDashed);
 
-  TFile* fout =  new TFile("gjetsWeights.root","RECREATE");
-  fout->cd();
-  h_ratioNLO->Write();
-  fout->Write();
-  fout->Close();
-
+ 
   c1->SetGrid();
   CMS_lumi( c1,true,0); 
-  h_ratioLO->GetXaxis()->SetTitle("MET [GeV]");
-  h_ratioLO->Draw("hist");  
-  h_ratioNLO->Draw("histsame");  
+  h_ratio->GetXaxis()->SetTitle("MET [GeV]");
+  h_ratio->Draw("hist");  
   h_weightLO->Draw("histsame");
   h_weightNLO->Draw("histsame");
   h_mitLO->Draw("histsame");
@@ -116,11 +100,10 @@ void CompareRatioLO(){
   legmc->SetBorderSize(0);
   legmc->SetFillStyle(0);
  
-  legmc->AddEntry(h_ratioLO, "Yields Ratio LO", "L");
-  legmc->AddEntry(h_ratioNLO, "Yields Ratio NLO", "L");
+  legmc->AddEntry(h_ratio, "Yields Ratio LO", "L");
   legmc->AddEntry(h_mitLO, "MIT Z/#gamma LO", "L");
-  legmc->AddEntry(h_mitNLO, "MIT Z/#gamma NLO", "L");
   legmc->AddEntry(h_weightLO, "R_{Z/#gamma} LO", "L");
+  legmc->AddEntry(h_mitNLO, "MIT Z/#gamma NLO", "L");
   legmc->AddEntry(h_weightNLO, "R_{Z/#gamma} NLO", "L");
   legmc->Draw("same");
   c1->SaveAs("../plots/RatioFactor.png");
@@ -251,13 +234,13 @@ h_gjet->GetXaxis()->SetBinLabel(h_yield_gjet->FindBin(13.5),"Met > 550");
  //-----------------//
 
 
-  TH1F* h_data_met  =  (TH1F*) fin_data->Get("h_t1phmet");
-  TH1F* h_gjet_met  =  (TH1F*) fin_gjet->Get("h_t1phmet");
+  TH1F* h_data_met  =  (TH1F*) fin_data->Get("h_phmet");
+  TH1F* h_gjet_met  =  (TH1F*) fin_gjet->Get("h_phmet");
   TH1F* h_data_metW  =  (TH1F*) fin_data->Get("h_phmetW");
   TH1F* h_gjet_metW  =  (TH1F*) fin_gjet->Get("h_phmetW");
   TH1F* h_znunu_met  =  (TH1F*) fin_znunu->Get("h_met_znunu");
-  h_gjet_met->Scale(19.7);
-  h_gjet_metW->Scale(19.7);
+  h_gjet_met->Scale(19.7*1.3);
+  h_gjet_metW->Scale(19.7*1.3);
   h_znunu_met->Scale(19.7);
 
   int bin250= h_data_met->FindBin(250.);
