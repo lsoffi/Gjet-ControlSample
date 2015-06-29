@@ -28,28 +28,32 @@ int main(int argc, char* argv[]) {
 
   std::string mc = argv[1];
   bool isMC = false;
-  if(mc=="MC") isMC = true;
+  if(mc=="Gjet") isMC = true;
+  if(mc=="Znn") isMC = true;
 
       //================ Creating chain 
   
  
   TFile* fin;
 
-  if(isMC)fin= new TFile("/afs/cern.ch/work/s/soffi/CMSSW_5_3_26-MonoJet/src/GJet/rootfiles/photon_MC_tree.root");
-  else fin= new TFile("/afs/cern.ch/work/s/soffi/CMSSW_5_3_26-MonoJet/src/GJet/rootfiles/photon_DATA_tree.root");
-  //else fin= new TFile("/afs/cern.ch/work/s/soffi/CMSSW_5_3_26-MonoJet/src/GJet/rootfiles/photonDataRunAtestPurity.root");
+  if(mc=="Gjet")fin= new TFile("/t3/users/lsoffi/CMSSW_5_3_26/src/rootfiles/photonMC_TestPurity.root");
+  if(mc=="Znn")fin= new TFile("rootfiles/znn.root");
+  //else fin= new TFile("/afs/cern.ch/work/s/soffi/CMSSW_5_3_26-MonoJet/src/GJet/rootfiles/photon_DATA_tree.root");
+  else fin= new TFile("/t3/users/lsoffi/CMSSW_5_3_26/src/rootfiles/Reduced_photonData_TestPurity.root");
 
   TChain* chain =new TChain("tree");
  
-    if(isMC){
-      chain->Add("/afs/cern.ch/work/s/soffi/CMSSW_5_3_26-MonoJet/src/GJet/rootfiles/photon_MC_tree.root/tree/tree");  
+    if(mc=="Gjet"){
+      chain->Add("/t3/users/lsoffi/CMSSW_5_3_26/src/rootfiles/photonMC_TestPurity.root/tree/tree");  
+    }else if(mc=="Znn"){
+      chain->Add("rootfiles/znn.root/tree/tree"); 
     }else{
-      chain->Add("/afs/cern.ch/work/s/soffi/CMSSW_5_3_26-MonoJet/src/GJet/rootfiles/photon_DATA_tree.root/tree/tree");  }
+      chain->Add("/t3/users/lsoffi/CMSSW_5_3_26/src/rootfiles/Reduced_photonData_TestPurity.root/tree/tree");  }
  
   // std::cout<<chain->GetEntries()<<std::endl;      
   //================ Run analysis
   Analysis tree( chain );
-  tree.Loop(isMC);
+  tree.Loop(isMC,mc);
   
   delete fin;
   delete chain;

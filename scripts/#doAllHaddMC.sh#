@@ -1,0 +1,8 @@
+source doHadd.sh "/pnfs/roma1.infn.it/data/cms/store/user/soffi" "Photon" "photonDataA" "150529_095414" "0000"
+
+
+G_Pt-120to170_TuneZ2star_8TeV_pythia6  photon120to170
+G_Pt-170to300_TuneZ2star_8TeV_pythia6  photon120to170
+G_Pt-300to470_TuneZ2star_8TeV_pythia6
+G_Pt-470to800_TuneZ2star_8TeV_pythia6
+G_Pt-800to1400_TuneZ2star_8TeV_pythia6

@@ -1,6 +1,7 @@
-preselphcorrPHIso[0,10];
+preselphcorrPHIso[0,4];
 preselphsieie[0,10];
 preselpheta[-5.,5.];
+preselphphi[-5.,5.];
 preselphpt[0.,2000.];
 weight[-10.2000.];
 hltphoton150[0,1];		
@@ -9,3 +10,6 @@ nphotons[0,5];
 signaljetpt[0.,2000.];
 signaljeteta[-5.,5.];
 njets[0,20];
+wzpt[0,1000.];
+wzeta[-10.,10];
+wzphi[-5.,5.];
